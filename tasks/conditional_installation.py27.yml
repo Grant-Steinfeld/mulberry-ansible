@@ -1,0 +1,25 @@
+---
+
+    - name: determine if python 2.7 installed
+      command: stat /opt/{{app_name}}/apps/python/py2712/bin/python2.7
+      register: python_stat_result 
+      failed_when: "'No such file or directory' in python_stat_result.stderr"
+      ignore_errors: yes
+    - include: tasks/python/setup_python.yml
+      when: python_stat_result.stdout == ""
+
+    - name: determine if pip installed
+      command: stat /opt/{{app_name}}/apps/python/py2712/bin/pip2.7
+      register: pip_stat_result 
+      failed_when: "'No such file or directory' in pip_stat_result.stderr"
+      ignore_errors: yes
+    - include: tasks/python/setup_pip.yml
+      when: pip_stat_result.stdout == ""
+
+    - name: is py virtualenv/pip dep setup
+      command: stat /opt/{{app_name}}/apps/python/venv
+      register: pyvenv_stat_result 
+      failed_when: "'No such file or directory' in pyvenv_stat_result.stderr"
+      ignore_errors: yes
+    - include: tasks/python/setup_pip_packages.yml
+      when: pyvenv_stat_result.stdout == ""

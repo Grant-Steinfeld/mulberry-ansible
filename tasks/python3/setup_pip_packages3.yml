@@ -7,7 +7,7 @@
 ##
 ## NOTE: pip now installed automatically with python3 yes
 
-## virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+## virtualenv_command: /opt/{{app_name}}/apps/python/py369/bin/python3 -m venv
 ##  virtualenv if not previously setup :)
 ## http://stackoverflow.com/questions/42579168/ansible-create-a-virtualenv-using-the-venv-module
 
@@ -25,14 +25,14 @@
 - pip:
     name: networkx
     virtualenv: /opt/{{app_name}}/apps/python/venv3
-    virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+    virtualenv_command: /opt/{{app_name}}/apps/python/py369/bin/python3 -m venv
     virtualenv_site_packages: yes
 
 # install mod_wsgi
 - pip:
     name: mod_wsgi
     virtualenv: /opt/{{app_name}}/apps/python/venv3
-    virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+    virtualenv_command: /opt/{{app_name}}/apps/python/py369/bin/python3 -m venv
     virtualenv_site_packages: yes
 
 ### MANUALLY ... for now setup mod_wsgi
@@ -47,7 +47,7 @@
 - pip:
     requirements: /opt/{{app_name}}/apps/python/pip_requirements3.txt
     virtualenv: /opt/{{app_name}}/apps/python/venv3
-    virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+    virtualenv_command: /opt/{{app_name}}/apps/python/py369/bin/python3 -m venv
     virtualenv_site_packages: yes
 
 - name: list pip packages 

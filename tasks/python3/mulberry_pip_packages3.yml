@@ -23,7 +23,7 @@
 - pip:
     requirements: /opt/{{app_name}}/apps/python/{{app_name}}_pip_requirements3.txt
     virtualenv: /opt/{{app_name}}/apps/python/venv3
-    virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+    virtualenv_command: /opt/{{app_name}}/apps/python/py369/bin/python3 -m venv
     virtualenv_site_packages: yes
 
 - name: list pip packages 

@@ -1,0 +1,13 @@
+{
+    "installer_user":"agentidea",
+    "installer_password":"breatheinthe@1R",
+    "runtime_user":"dev",
+    "runtime_password":"Bb1t@Dbatc",
+    "apache_user":"apache",
+    "rabbit_user":"rabbitmq",
+    "default_password":"vacation",
+    "company_pass":"agentidea_pass",
+    "company_user":"dev",
+    "application_name":"bchlabs",
+    "app_name":"bchlabs"
+}

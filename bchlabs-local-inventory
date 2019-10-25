@@ -1,0 +1,8 @@
+[dev_hosts]
+bch.labs
+
+[dev_hosts:vars]
+ansible_connect=ssh 
+ansible_user=agentidea
+ansible_python_interpreter=/usr/bin/python2
+
