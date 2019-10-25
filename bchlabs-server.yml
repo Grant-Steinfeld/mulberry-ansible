@@ -15,6 +15,7 @@
     "company_pass": "{{installer_password}}"
 
     "company_pythondir": "/opt/{{app_name}}/apps/python"
+    "company_pythondir2": "/opt/{{app_name}}/apps/python2"
     "company_setupdir": "/opt/{{app_name}}/apps/setup"
 
 
@@ -23,17 +24,17 @@
     "dev_user": "{{runtime_user}}"
     
   tasks:
-      - include: tasks/initial_steps/initial_setup.yml
-      - include: tasks/users/dev_user.yml
-      - include: tasks/initial_steps/setup_packages.yml
+      # - include: tasks/initial_steps/initial_setup.yml
+      # - include: tasks/users/dev_user.yml
+      # - include: tasks/initial_steps/setup_packages.yml
       
       
       - include: tasks/directories/create_py2_venv_dirs.yml
-      - include: tasks/directories/create_py3_venv_dirs.yml
+      # - include: tasks/directories/create_py3_venv_dirs.yml
 
-      # - include: tasks/python/setup_python.yml
-      # - include: tasks/python/setup_pip.yml
-      # - include: tasks/python/setup_pip_packages.yml
+      - include: tasks/python/setup_python.yml
+      - include: tasks/python/setup_pip.yml
+      - include: tasks/python/setup_pip_packages.yml
 
       # - include: tasks/python3/setup_python3.yml
       # - include: tasks/python3/setup_pip_packages3.yml

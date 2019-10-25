@@ -29,11 +29,11 @@
     virtualenv_site_packages: yes
 
 # install mod_wsgi
-- pip:
-    name: mod_wsgi
-    virtualenv: /opt/{{app_name}}/apps/python/venv3
-    virtualenv_command: /opt/{{app_name}}/apps/python/py369/bin/python3 -m venv
-    virtualenv_site_packages: yes
+# - pip:
+#     name: mod_wsgi
+#     virtualenv: /opt/{{app_name}}/apps/python/venv3
+#     virtualenv_command: /opt/{{app_name}}/apps/python/py369/bin/python3 -m venv
+#     virtualenv_site_packages: yes
 
 ### MANUALLY ... for now setup mod_wsgi
 ### vim /etc/httpd/conf.modules.d/10-wsgi.conf

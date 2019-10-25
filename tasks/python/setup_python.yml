@@ -28,9 +28,9 @@
       - ack
 
 - name: "copy python setup script"
-  copy: src=tasks/python/install_python.sh dest="{{ company_setupdir }}/python/install_python.sh" mode=0755 owner="{{ company_user }}"
+  copy: src=tasks/python/install_python.sh dest="{{ company_setupdir }}/python2/install_python.sh" mode=0755 owner="{{ company_user }}"
 
 - name: run python installation script
-  shell: "{{ company_setupdir }}/python/install_python.sh"
+  shell: "{{ company_setupdir }}/python2/install_python.sh"
   become: yes
   become_user: "{{ dev_user }}"

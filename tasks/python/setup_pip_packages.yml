@@ -13,15 +13,15 @@
 
 
 - name: "copy pip requirements script"
-  copy: src=tasks/python/pip_requirements.txt dest="{{ company_pythondir }}/pip_requirements.txt" mode=0755 owner="{{ company_user }}"
+  copy: src=tasks/python/pip_requirements.txt dest="{{ company_pythondir2 }}/pip_requirements.txt" mode=0755 owner="{{ company_user }}"
 
 
 
 # install mod_wsgi
 - pip:
     name: mod_wsgi
-    virtualenv: /opt/{{app_name}}/apps/python/venv
-    virtualenv_command: /opt/{{app_name}}/apps/python/py278/bin/virtualenv
+    virtualenv: /opt/{{app_name}}/apps/python2/venv
+    virtualenv_command: /opt/{{app_name}}/apps/python2/py278/bin/virtualenv
     virtualenv_site_packages: yes
 
 # # Add the following lines for wsgi config.
@@ -63,13 +63,13 @@
 
  # just install a bunch via pip_requirements.txt  
 - pip:
-    requirements: /opt/{{app_name}}/apps/python/pip_requirements.txt
-    virtualenv: /opt/{{app_name}}/apps/python/venv
-    virtualenv_command: /opt/{{app_name}}/apps/python/py278/bin/virtualenv
+    requirements: /opt/{{app_name}}/apps/python2/pip_requirements.txt
+    virtualenv: /opt/{{app_name}}/apps/python2/venv
+    virtualenv_command: /opt/{{app_name}}/apps/python2/py278/bin/virtualenv
     virtualenv_site_packages: yes
 
 - name: list pip packages 
-  shell: /opt/{{app_name}}/apps/python/venv/bin/pip list
+  shell: /opt/{{app_name}}/apps/python2/venv/bin/pip list
   register: pip_list_out
 
 - debug: var=pip_list_out.stdout_lines

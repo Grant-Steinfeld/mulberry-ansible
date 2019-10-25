@@ -2,10 +2,10 @@
 ---
 # create default directory structures
 
-  - name: opt/{{app_name}}/apps/setup/python dir
-    file: path=/opt/{{app_name}}/apps/setup/python state=directory owner=dev group=dev
-  - name: opt/{{app_name}}/apps/python dir
-    file: path=/opt/{{app_name}}/apps/python state=directory owner=dev group=dev
-  - name: opt/{{app_name}}/apps/setup/python dir
-    file: path=/opt/{{app_name}}/apps/setup/python state=directory owner=dev group=dev    
+  - name: opt/{{app_name}}/apps/setup/python2 dir
+    file: path=/opt/{{app_name}}/apps/setup/python2 state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/python2 dir
+    file: path=/opt/{{app_name}}/apps/python2 state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/setup/python2 dir
+    file: path=/opt/{{app_name}}/apps/setup/python2 state=directory owner=dev group=dev    
   
