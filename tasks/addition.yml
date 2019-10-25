@@ -1,0 +1,19 @@
+---
+
+- name: "install ntp for syncing time"
+  yum: name={{ item }} state=latest
+  with_items:
+    - ntp
+
+- name: "start ntp service"
+  service:
+    name: ntpd
+    state: restarted
+    enabled: yes
+
+- name: "set timezone"
+  file:
+    src: '/usr/share/zoneinfo/America/Los_Angeles'
+    dest: '/etc/localtime'
+    state: link
+

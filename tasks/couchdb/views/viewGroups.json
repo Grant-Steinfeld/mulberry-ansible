@@ -1,0 +1,1 @@
+{"_id":"_design/reports","language":"javascript","views":{"groupname":{"map":"function(doc) {\n   if(doc.groupname)\n   {\n  \temit(doc.groupname, doc);\n   }\n}"},"groupusers":{"map":"function(doc) {\nif(doc[\"users\"])\n  \t\temit( doc[\"groupname\"], doc[\"users\"]);\n\n}"}}}

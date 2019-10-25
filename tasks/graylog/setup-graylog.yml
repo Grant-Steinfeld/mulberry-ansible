@@ -1,0 +1,41 @@
+- name: "install pwgen"
+  yum: name={{ item }} state=latest
+  with_items:
+    - pwgen
+    - pycrypto
+
+
+
+# [root@graylog agentidea]# pwgen -N 1 -s 96
+
+# g3RscN5aDEAcojwZIEwRmimhn1AhnPtwS7zcPfPvN3bdvtME93JoyAsZnpjNGIdyO4SJf1hRPokH21UgXXXsPoT6uq2RECM2
+
+# ran on server directly
+# http://docs.graylog.org/en/latest/pages/installation/os/centos.html
+
+# $ sudo rpm -Uvh https://packages.graylog2.org/repo/packages/graylog-2.4-repository_latest.rpm
+# $ sudo yum install graylog-server
+
+
+
+# - name: Add graylog rpm repository
+#   copy:
+#       src: https://packages.graylog2.org/repo/packages/graylog-2.4-repository_latest.rpm
+#       dest: /tmp/graylog-2.4-repository_latest.rpm
+
+# - name: "install graylog package"
+#   yum: 
+#       name: /tmp/graylog-2.4-repository_latest.rpm
+#       state: present
+
+# - name: Enable Graylog for auto-start
+#   service:
+#      name: "{{ item }}"
+#      enabled: yes
+#   with_items:
+#      - graylog-server
+
+
+# - name: Make sure graylog service is running
+#   systemd: state=started name=graylog-server.service
+

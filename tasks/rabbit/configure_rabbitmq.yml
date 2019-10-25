@@ -1,0 +1,5 @@
+- pip:
+    name: pika
+    virtualenv: /opt/{{app_name}}/apps/python/venv
+    virtualenv_command: /opt/{{app_name}}/apps/python/py278/bin/virtualenv
+    virtualenv_site_packages: yes

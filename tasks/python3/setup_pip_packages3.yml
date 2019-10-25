@@ -1,0 +1,58 @@
+
+##  Development VM Setup
+##  
+## Pip packages for python 3
+##
+## author: Grant Steinfeld
+##
+## NOTE: pip now installed automatically with python3 yes
+
+## virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+##  virtualenv if not previously setup :)
+## http://stackoverflow.com/questions/42579168/ansible-create-a-virtualenv-using-the-venv-module
+
+
+## DELAYED:
+---
+
+- name: "copy pip requirements script"
+  copy: src=tasks/python3/pip_requirements3.txt dest="{{company_pythondir}}/pip_requirements3.txt" mode=0755 owner="{{company_user}}"
+
+
+
+# # One by one example
+#Install (networkx) into the specified (virtualenv), inheriting globally installed modules
+- pip:
+    name: networkx
+    virtualenv: /opt/{{app_name}}/apps/python/venv3
+    virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+    virtualenv_site_packages: yes
+
+# install mod_wsgi
+- pip:
+    name: mod_wsgi
+    virtualenv: /opt/{{app_name}}/apps/python/venv3
+    virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+    virtualenv_site_packages: yes
+
+### MANUALLY ... for now setup mod_wsgi
+### vim /etc/httpd/conf.modules.d/10-wsgi.conf
+### add ...
+
+### LoadModule wsgi_module /opt/{{app_name}}/apps/python/venv3/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
+### WSGIPythonPath "/opt/{{app_name}}/apps/python/venv3:/opt/{{app_name}}/apps/python/venv3/lib/python3.6/site-packages"
+
+
+ # just install a bunch via pip_requirements3.txt  
+- pip:
+    requirements: /opt/{{app_name}}/apps/python/pip_requirements3.txt
+    virtualenv: /opt/{{app_name}}/apps/python/venv3
+    virtualenv_command: /opt/{{app_name}}/apps/python/py361/bin/python3 -m venv
+    virtualenv_site_packages: yes
+
+- name: list pip packages 
+  shell: /opt/{{app_name}}/apps/python/venv3/bin/pip list
+  register: pip_list_out
+
+- debug: var=pip_list_out.stdout_lines
+  

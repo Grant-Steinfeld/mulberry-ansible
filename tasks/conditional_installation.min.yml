@@ -1,0 +1,19 @@
+
+
+- name: determine if erlang 17 is installed
+  command: stat /opt/{{application_name}}/apps/erlang/lib/erlang/bin/erl
+  register: erlang_stat_result 
+  failed_when: "'No such file or directory' in erlang_stat_result.stderr"
+  ignore_errors: yes
+- include: tasks/erlang/setup_erlang.yml
+  when: erlang_stat_result.stdout == ""
+
+- name: determine if couchDB 1.6.1 is installed
+  command: stat /opt/{{application_name}}/apps/couchdb/bin/couchdb
+  register: couch_stat_result 
+  failed_when: "'No such file or directory' in couch_stat_result.stderr"
+  ignore_errors: yes
+- include: tasks/couchdb/setup_couch.yml
+  when: couch_stat_result.stdout == ""
+
+

@@ -1,0 +1,11 @@
+## AgentIdea Development VM Setup
+##
+## create neo4j unprivliged user
+## author: GS
+##
+##
+---
+  - name: neo4j group
+    group: name=neo4j
+  - name: neo4j user
+    user: name=neo4j comment="neo4j User" 

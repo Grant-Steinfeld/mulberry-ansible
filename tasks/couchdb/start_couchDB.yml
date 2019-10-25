@@ -1,0 +1,14 @@
+## 
+## start services script 
+##
+---
+
+    - name: start couchDB
+      shell: sudo service couchdb start
+      register: start_contents
+    - debug: var=start_contents.stdout_lines
+
+    - name: stat couchDB post start contents
+      shell: sudo service couchdb status
+      register: post_start_contents
+    - debug: var=post_start_contents.stdout_lines

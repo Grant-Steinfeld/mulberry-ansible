@@ -1,0 +1,38 @@
+
+## author: GS
+
+---
+# create default directory structures
+
+  - name: opt/{{app_name}} dir
+    file: path=/opt/{{app_name}} state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps dir
+    file: path=/opt/{{app_name}}/apps state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/python dir
+    file: path=/opt/{{app_name}}/apps/python state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/setup/python dir
+    file: path=/opt/{{app_name}}/apps/setup/python state=directory owner=dev group=dev    
+  
+  - name: opt/{{app_name}}/apps/setup/rabbitmq dir
+    file: path=/opt/{{app_name}}/apps/setup/rabbitmq state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/setup/NodeJS dir
+    file: path=/opt/{{app_name}}/apps/setup/NodeJS state=directory owner=dev group=dev  
+
+  - name: opt/{{app_name}}/apps/setup/erlang dir
+    file: path=/opt/{{app_name}}/apps/setup/erlang state=directory owner=dev group=dev
+
+  - name: opt/{{app_name}}/apps/setup/python dir
+    file: path=/opt/{{app_name}}/apps/setup/python state=directory owner=dev group=dev
+
+  - name: opt/{{app_name}}/apps/setup/mono dir
+    file: path=/opt/{{app_name}}/apps/setup/mono state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/setup/couchdb dir
+    file: path=/opt/{{app_name}}/apps/setup/couchdb state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/couchdb dir
+    file: path=/opt/{{app_name}}/apps/couchdb state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/apps/erlang dir
+    file: path=/opt/{{app_name}}/apps/erlang state=directory owner=dev group=dev
+  - name: opt/{{app_name}}/src dir
+    file: path=/opt/{{app_name}}/src state=directory owner=dev group=dev
+  - name: var/log/{{app_name}} dir
+    file: path=/var/log/{{app_name}} state=directory owner={{apache_user}} group={{apache_user}}

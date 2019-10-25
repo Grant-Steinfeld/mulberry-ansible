@@ -1,0 +1,45 @@
+## create application dirs
+---
+
+  - name: opt/{{app_name}}/1.0.0 dir
+    file: path=/opt/{{app_name}}/1.0.0 state=directory owner={{company}} group={{company}}
+
+  - name: opt/{{app_name}}/1.0.0/etc dir
+    file: path=/opt/{{app_name}}/1.0.0/etc state=directory owner={{company}} group={{company}}
+  - name: opt/{{app_name}}/1.0.0/bin dir
+    file: path=/opt/{{app_name}}/1.0.0/bin state=directory owner={{company}} group={{company}}
+
+
+  - name: opt/{{app_name}}/1.0.0/load dir
+    file: path=/opt/{{app_name}}/1.0.0/load state=directory owner={{company}} group={{company}}
+  - name: opt/{{app_name}}/1.0.0/template dir
+    file: path=/opt/{{app_name}}/1.0.0/template state=directory owner={{apache_user}} group={{apache_user}}
+
+  - name: opt/{{app_name}}/1.0.0/tmp dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/upload dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/upload state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/hyperion dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/hyperion state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/TemplateTrash dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/TemplateTrash state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/tmpcharts dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/tmpcharts state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/cache dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/cache state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/csv dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/csv state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/export dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/export state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/queue dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/queue state=directory owner={{apache_user}} group={{apache_user}}
+  - name: opt/{{app_name}}/1.0.0/tmp/queue/requests dir
+    file: path=/opt/{{app_name}}/1.0.0/tmp/queue/requests state=directory owner={{apache_user}} group={{apache_user}}
+
+  - name: opt/{{app_name}}/1.0.0/templates dir
+    file: path=/opt/{{app_name}}/1.0.0/templates state=directory owner={{apache_user}} group={{apache_user}}
+
+  - name: opt/{{app_name}}/1.0.0/templates/AstroTemplates dir
+    file: path=/opt/{{app_name}}/1.0.0/templates/AstroTemplates state=directory owner={{apache_user}} group={{apache_user}}
+
+

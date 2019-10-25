@@ -1,0 +1,9 @@
+---
+
+- name: "copy couchdb viewChanges.json"
+  copy: src=couchdb/views/viewChanges.json dest="{{ {{company}}_setupdir }}/couchdb/viewChanges.json" mode=0755 owner="{{ {{company}}_user }}"
+
+- name: "create new view"
+  shell: curl -X PUT http://rhada:pup@127.0.0.1:5984/astro_changes/_design/reports -d @viewChanges.json
+  args:
+    chdir: "{{ {{company}}_couchsetupdir }}"

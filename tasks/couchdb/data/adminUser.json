@@ -1,0 +1,13 @@
+{
+   "_id": "41eba833b6f1fb5e9d6b154afa32f3d2",
+   "username": "admin",
+   "passwordAttempts": 0,
+   "password": "a6af63ea5de88671231f9b0b975e2b39",
+   "locked": false,
+   "description": "base administrator account",
+   "license": {
+       "accepted": true,
+       "acceptedOn": "Thu May 30 20:35:52 2013"
+   },
+   "created": "Thursday Feb  16 12:18:36 2012"
+}

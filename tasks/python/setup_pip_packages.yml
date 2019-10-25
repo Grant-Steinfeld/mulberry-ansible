@@ -1,0 +1,76 @@
+
+## {{company_camel}} Development VM Setup
+##
+## author: Grant Steinfeld
+##
+## NOTE: pip Asible command will setup
+##  virtualenv if not previously setup :)
+
+
+## DELAYED:
+---
+
+
+
+- name: "copy pip requirements script"
+  copy: src=tasks/python/pip_requirements.txt dest="{{ company_pythondir }}/pip_requirements.txt" mode=0755 owner="{{ company_user }}"
+
+
+
+# install mod_wsgi
+- pip:
+    name: mod_wsgi
+    virtualenv: /opt/{{app_name}}/apps/python/venv
+    virtualenv_command: /opt/{{app_name}}/apps/python/py278/bin/virtualenv
+    virtualenv_site_packages: yes
+
+# # Add the following lines for wsgi config.
+# # ansible < 2.3 use dest instead of path.
+# - name: put mod_wsgi config
+#   blockinfile:
+#     dest: "/etc/httpd/conf.modules.d/10-wsgi.conf"
+#     create: yes
+#     block: |
+#       LoadModule wsgi_module /opt/{{app_name}}/apps/python/venv/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
+#       WSGIPythonHome /opt/{{app_name}}/apps/python/venv/
+
+## confirm pip install worked
+# /opt/{{app_name}}/apps/python/venv/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
+
+# ## add mod_wsgi  conf
+# - blockinfile: |
+#     dest=/etc/httpd/conf.modules.d/02-wsgi.conf backup=yes
+#     content="LoadModule wsgi_module /opt/{{app_name}}/apps/python/venv/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
+# WSGIPythonHome /opt/{{app_name}}/apps/python/venv/"
+
+## restart {{apache_user}} to LoadModule 
+# systemctl stop httpd
+# systemctl start httpd
+# systemctl status httpd
+
+## deterimine module loaded
+#httpd -M
+
+
+
+# # One by one example
+# Install (networkx) into the specified (virtualenv), inheriting globally installed modules
+# - pip:
+#     name: networkx
+#     virtualenv: /opt/{{app_name}}/apps/python/venv
+#     virtualenv_command: /opt/{{app_name}}/apps/python/py278/bin/virtualenv
+#     virtualenv_site_packages: yes
+
+ # just install a bunch via pip_requirements.txt  
+- pip:
+    requirements: /opt/{{app_name}}/apps/python/pip_requirements.txt
+    virtualenv: /opt/{{app_name}}/apps/python/venv
+    virtualenv_command: /opt/{{app_name}}/apps/python/py278/bin/virtualenv
+    virtualenv_site_packages: yes
+
+- name: list pip packages 
+  shell: /opt/{{app_name}}/apps/python/venv/bin/pip list
+  register: pip_list_out
+
+- debug: var=pip_list_out.stdout_lines
+  

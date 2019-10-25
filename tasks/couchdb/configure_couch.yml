@@ -1,0 +1,9 @@
+- name: "copy couchdb config script"
+  copy: src=bootstrap_couch.sh dest="{{ company_setupdir }}/couchdb/bootstrap_couch.sh" mode=0755 owner="{{ company_user }}"
+
+
+
+- name: run couchdb config script
+  shell: "{{ company_couchsetupdir }}/bootstrap_couch.sh"
+  args:
+    chdir: "{{ company_couchsetupdir }}"

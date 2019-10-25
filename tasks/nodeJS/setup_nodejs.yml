@@ -1,0 +1,15 @@
+## {{company_camel}} Development VM Setup
+##
+## author: Grant Steinfeld
+##
+## setup NodeJS with yum and confirm
+
+- name: "install NodeJS"
+  yum: name={{ item }} state=latest
+  with_items:
+    - npm
+
+- name: confirm NodeJS version
+  shell: node -v
+  register: contents
+- debug: var=contents.stdout_lines

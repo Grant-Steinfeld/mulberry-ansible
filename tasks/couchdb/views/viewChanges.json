@@ -1,0 +1,9 @@
+{
+   "_id": "_design/reports",
+   "language": "javascript",
+   "views": {
+       "by_subtree": {
+           "map": "function(doc) {    var path = [doc.treeID].concat(doc.nodePath);    path = path.concat([doc.nodeID]);    for (var i in path) {       emit([path[i], path]);    }}"
+       }
+   }
+}

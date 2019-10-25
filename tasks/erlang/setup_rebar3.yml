@@ -1,0 +1,20 @@
+
+- name: ~/bin
+  file: path=/home/{{company_user}}/bin state=directory owner={{company_user}} group={{company_user}}
+
+- lineinfile:
+    dest: /home/{{company_user}}/.bashrc
+    line: 'export PATH=~/bin/:$PATH'
+
+
+- name: Download rebar3
+  get_url:
+    url: https://s3.amazonaws.com/rebar3/rebar3
+    dest: /home/agentidea/bin
+    owner: agentidea 
+    group: agentidea
+    mode: 0700
+    
+#wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+#http://mason.gmu.edu/~montecin/UNIXpermiss.htm
+#http://permissions-calculator.org/

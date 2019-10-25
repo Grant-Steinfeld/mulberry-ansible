@@ -1,0 +1,14 @@
+## 
+## start services script 
+##
+---
+
+    - name: start httpd
+      shell: sudo service httpd start
+      register: start_contents
+    - debug: var=start_contents.stdout_lines
+
+    - name: status httpd post start contents
+      shell: sudo service httpd status
+      register: post_start_contents
+    - debug: var=post_start_contents.stdout_lines

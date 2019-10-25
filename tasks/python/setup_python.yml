@@ -1,0 +1,36 @@
+## {{company_camel}} Development VM Setup
+##
+## author: Grant Steinfeld
+##
+##
+
+## DELAYED:
+---
+- name: "install development tools"
+  shell: yum groupinstall -y "Development Tools"
+
+- name: "install python prerequisites"
+  yum: name={{ item }} state=latest
+  with_items:
+      - zlib-devel
+      - bzip2-devel
+      - openssl-devel
+      - ncurses-devel
+      - xz-libs
+      - httpd-devel
+      - readline-devel
+      - htop
+      - m4
+      - libssh-devel
+      - wget
+      - tree
+      - lsof
+      - ack
+
+- name: "copy python setup script"
+  copy: src=tasks/python/install_python.sh dest="{{ company_setupdir }}/python/install_python.sh" mode=0755 owner="{{ company_user }}"
+
+- name: run python installation script
+  shell: "{{ company_setupdir }}/python/install_python.sh"
+  become: yes
+  become_user: "{{ dev_user }}"

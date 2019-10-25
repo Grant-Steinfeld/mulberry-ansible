@@ -1,0 +1,49 @@
+## {{company_camel}} build server VM Setup
+##
+## build directory is in user {{company}}'s home directory'
+## author: GS
+##
+##
+---
+
+
+#clean
+  - name: Clean build dir
+    file:
+      state: absent
+      path: /home/{{company}}/RangalBuild
+
+  # create build directory structures
+  - name: home/{{company}}/RangalBuild dir
+    file: path=/home/{{company}}/RangalBuild state=directory owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+  
+  - name: home/{{company}}/RangalGit dir
+    file: path=/home/{{company}}/RangalBuild/RangalGit state=directory owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+  
+  - name: home/{{company}}/RangalGit/sources dir
+    file: path=/home/{{company}}/RangalBuild/RangalGit/sources state=directory owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+  - name: home/{{company}}/RangalGit/scripts dir
+    file: path=/home/{{company}}/RangalBuild/RangalGit/scripts state=directory owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+
+  # - name: home/{{company}}/RangalBuild dir
+  #   file: path=/home/{{company}}/RangalBuild/RangalBuild state=directory owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+  
+  - name: home/{{company}}/RpmBuild dir
+    file: path=/home/{{company}}/RangalBuild/RpmBuild state=directory owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+  
+# mkdir BUILD RPMS  SOURCES  SPECS  SRPMS
+ 
+  - name: test
+    file: dest=/home/{{company}}/RangalBuild/RpmBuild/{{item}} state=directory owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+    with_items:
+      - 'BUILD'
+      - 'SOURCES'
+      - 'RPMS'
+      - 'SRPMS'
+      - 'SPECS'
+
+  - name: "copy spec script"
+    copy: src=tasks/deployment/{{company}}_tools.spec dest="/home/{{company}}/RangalBuild/RpmBuild/SPECS/{{company}}_tools.spec" mode=0600 owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"
+
+  - name: "copy git clone script"
+    copy: src=tasks/deployment/gitClone.sh dest="/home/{{company}}/RangalBuild/RangalGit/scripts/gitClone.sh" mode=0700 owner="{{ {{company}}_user }}" group="{{ {{company}}_user }}"

@@ -1,0 +1,28 @@
+#
+####### pip-requirements.txt #######
+#
+###### Requirements without Version Specifiers ######
+
+chardet
+future
+jsonpath-rw
+flask
+flask-cors
+flask-restplus
+requests
+pymongo
+lettuce
+nose 
+pycurl
+textblob
+pysqlite
+pyOpenSSL
+service_identity
+itsdangerous
+multiprocess
+pathos
+pesto
+pox
+PyJWT
+python-dateutil
+sendgrid

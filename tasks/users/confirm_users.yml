@@ -1,0 +1,18 @@
+## 
+## user confirmation script 
+##
+---
+    - name: confirm installer_user setup
+      shell: sudo groups "{{installer_user}}"
+      register: contents
+    - debug: var=contents.stdout_lines
+
+    - name: confirm runtime_user setup
+      shell: sudo groups "{{runtime_user}}"
+      register: contents
+    - debug: var=contents.stdout_lines
+
+    - name: confirm rabbit_user setup
+      shell: sudo groups "{{rabbit_user}}"
+      register: contents
+    - debug: var=contents.stdout_lines

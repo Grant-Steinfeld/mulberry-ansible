@@ -1,0 +1,12 @@
+## {{company}} Development VM Setup
+## create {{company}} user member of dev group
+## author: GS
+##
+##
+---
+
+
+  - name: {{company}} user
+    user: name={{company}} comment="{{company}}Dev User" group=dev password={{ {{company}}_pass }}
+  - name: {{company}} sudo
+    lineinfile: dest=/etc/sudoers line="{{company}} ALL=(ALL) ALL" insertafter="root ALL"

@@ -1,0 +1,78 @@
+### setup certbot for free SSL certificates
+##
+---
+
+# This can only be run after dns setup.
+# Can only be run on first setup.
+
+# - name: "install certbot"
+#   yum: name={{ item }} state=latest
+#   with_items:
+#     - python-certbot-apache_user
+
+# - name: "update server name in ssl config"
+#   lineinfile:
+#     dest: /etc/httpd/conf.d/ssl.conf
+#     regexp: "^#?ServerName"
+#     line: "ServerName {{ ansible_hostname }}:443"
+
+
+# did this manually ... due to issue
+# https://community.letsencrypt.org/t/solution-client-with-the-currently-selected-authenticator-does-not-support-any-combination-of-challenges-that-will-satisfy-the-ca/49983
+
+# #- name: "generate certificate"
+# BROKEN  #shell: certbot --apache certonly -d $(hostname) --agree-tos -m grantsteinfeld@gmail.com --no-eff-email
+
+#   #shell: certbot --authenticator standalone --installer apache -d $(hostname) --pre-hook "apachectl stop" --post-hook "apachectl start"
+
+#actually for multiple subdomains on same machine ... USE --expand
+# read https://community.letsencrypt.org/t/letsencrypt-on-multiple-subdomains-multiple-server-multiple-ips/28247
+## certbot --authenticator standalone --installer apache --expand -d lastlist.com -d beta.lastlist.com -d api.lastlist.com --pre-hook "apachectl stop" --post-hook "apachectl start"
+
+
+# - name: "update ssl conf 1"
+#   lineinfile:
+#     dest: /etc/httpd/conf.d/ssl.conf
+#     regexp: "^SSLProtocol"
+#     line: "SSLProtocol all -SSLv2 -SSLv3"
+
+# - name: "update ssl conf 2"
+#   lineinfile:
+#     dest: /etc/httpd/conf.d/ssl.conf
+#     regexp: "^SSLCipherSuite"
+#     line: "SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA"
+
+# - name: "update ssl conf 3"
+#   lineinfile:
+#     dest: /etc/httpd/conf.d/ssl.conf
+#     regexp: "^SSLCertificateFile"
+#     line: "SSLCertificateFile /etc/letsencrypt/live/{{ ansible_hostname }}cert.pem"
+
+# - name: "update ssl conf 4"
+#   lineinfile:
+#     dest: /etc/httpd/conf.d/ssl.conf
+#     regexp: "^SSLCertificateKeyFile"
+#     line: "SSLCertificateKeyFile /etc/letsencrypt/live/{{ ansible_hostname }}/privkey.pem"
+
+# - name: "update ssl conf 5"
+#   lineinfile:
+#     dest: /etc/httpd/conf.d/ssl.conf
+#     regexp: "^#?SSLCertificateChainFile"
+#     line: "SSLCertificateChainFile /etc/letsencrypt/live/{{ ansible_hostname }}/chain.pem"
+
+# - name: "restart httpd after certbot setup"
+#   shell: apachectl graceful
+#   become: yes
+#   become_user: root
+
+- name: "Set cron job for certbot"
+  blockinfile:
+    dest: "/etc/cron.d/certbot"
+    create: yes
+    block: |
+      # Minute   Hour     Day of Month   Month              Day of Week       Who   Command
+      # (0-59)   (0-23)   (1-31)         (1-12 or Jan-Dec)  (0-6 or Sun-Sat)  root  /my/fancy/script.sh
+
+      # Runs at 2pm local time every Monday.
+      MAILTO=grantsteinfeld@agentidea.com
+      00 14 * * 1 root /bin/certbot renew --renew-hook "/usr/sbin/{{apache_user}}ctl graceful"

@@ -1,0 +1,16 @@
+## {{company_camel}} Development VM Setup
+##
+## author: Grant Steinfeld
+##
+##
+
+## DELAYED:
+---
+
+- name: "copy pip setup script"
+  copy: src=tasks/python/install_pip.sh dest="{{ company_pythondir }}/install_pip.sh" mode=0755 owner="{{ company_user }}"
+
+- name: run pip installation script
+  shell: "{{ company_pythondir }}/install_pip.sh"
+  become: yes
+  become_user: "{{ dev_user }}"

@@ -1,0 +1,19 @@
+
+## {{company_camel}} Development VM Setup
+##
+## author: GS
+##
+##  build server - packages Setup
+##  needed to checkout git sources and build rpm
+
+---
+
+  - name: "install prerequisites"
+    yum: name={{ item }} state=latest
+    with_items:
+      - tree
+      - git
+      - rpm-build
+      - vim
+
+

@@ -1,0 +1,18 @@
+## setup git repos
+
+- name: opt/{{app_name}}/1.0.0/load dir
+  file: path=/opt/{{app_name}}/1.0.0/load state=directory owner={{company}} group={{company}}
+- name: opt/{{app_name}}/1.0.0/load dir
+  file: path=/opt/{{app_name}}/1.0.0/load state=directory owner={{company}} group={{company}}
+
+
+- git:
+    repo: ssh://git@github.com:{{company}}/{{app_name}}Setup.git
+    dest: /opt/{{app_name}}/1.0.0/load 
+
+
+# git@github.com:{{company}}/AstroTemplates.git
+# git@github.com:{{company}}/AstroService.git
+# git@github.com:{{company}}/dev.git
+# git@github.com:{{company}}/Chomolongma.git
+# git@github.com:{{company}}/huashan.git

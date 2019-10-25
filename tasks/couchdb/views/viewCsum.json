@@ -1,0 +1,1 @@
+{"_id":"_design/reports","language":"javascript","views":{"csum":{"map":"function(doc) {if(doc.hasOwnProperty('csum'))  emit(doc.csum, doc); }"}}}

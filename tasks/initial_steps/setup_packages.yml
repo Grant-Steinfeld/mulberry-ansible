@@ -1,0 +1,50 @@
+
+## {{company_camel}} Development VM Setup
+##
+## author: GS
+##
+## yum update
+## yum install autoconf autoconf autoconf-archive 
+##  automake ncurses-devel curl-devel 
+##  erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl 
+##  help2man js-devel libicu-devel libtool perl-Test-Harness
+---
+
+  - name: epel
+    yum: pkg=epel-release state=latest
+    when: ansible_os_family == "RedHat"
+
+
+  - name: "install prerequisites"
+    yum: name={{ item }} state=latest
+    with_items:
+      - tree
+      - htop
+      - httpd
+      - httpd-devel
+      - mod_ssl
+      - help2man
+      - js-devel
+      - autoconf 
+      - autoconf-archive 
+      - automake 
+      - ncurses-devel 
+      - curl-devel
+      - libicu-devel
+      - libtool
+      - screen
+      - socat
+      - sqlite-devel
+      - openssl-devel
+      - libffi-devel
+      - gcc
+      - gcc-c++
+      - glibc-devel
+      - make
+
+
+  - name: "start httpd service by default"
+    service:
+      name: httpd
+      state: restarted
+      enabled: yes

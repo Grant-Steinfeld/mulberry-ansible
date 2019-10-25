@@ -1,0 +1,11 @@
+##  Development VM Setup
+##
+## author: GS
+##
+##
+---
+# create py3 venv directory structures
+
+
+  - name: opt/{{app_name}}/apps/python/venv3 dir
+    file: path=/opt/{{app_name}}/apps/python/venv3 state=directory owner=dev group=dev

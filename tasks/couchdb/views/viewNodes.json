@@ -1,0 +1,91 @@
+{
+   "_id": "_design/reports",
+   "language": "javascript",
+   "views": {
+       "portfolionodes": {
+           "map": "function(doc) {\n  emit(doc.treeID,doc);  \n}"
+       },
+       "platformnodes": {
+           "map": "function(doc) {\nif (doc.isPlatform===true) {\nemit(doc.treeID,doc);\n}\n}"
+       },
+       "parent": {
+           "map": "function(doc) {\n  if(doc.hasOwnProperty('parent'))\n  emit(doc.parent, doc);\n}"
+       },
+       "leafnodesbytemplate": {
+           "map": "function(doc) {\n\tif (doc.children.length===0) {\n\t\temit(doc.treeID+'_'+doc.commands[0],doc);\n\t}\n}"
+       },
+       "leafnodes": {
+           "map": "function(doc) {\n\tif (doc.children.length===0) {\n\t\temit(doc.treeID,doc);\n\t}\n}"
+       },
+       "subtree": {
+           "map": "function(doc) {\n  emit(doc.path, doc);\n}"
+       },
+       "treeID": {
+           "map": "function(doc) {\n  if(doc.hasOwnProperty('treeID')){  if(doc.parent == null){ emit(doc.treeID, doc);}}}"
+       },
+       "treeCount": {
+           "map": "function(doc) {\n\tif(doc.hasOwnProperty('treeID') == true)\n\t{\n\t\t//var parts = doc.treeID.split(\" \");\n                //var id = parts[1];\n  \t\temit(doc.treeID, 1);\n\t}\n}",
+           "reduce": "function(keys,values) {\n\n var sum = 0;\n  values.forEach(function(element) {\n    sum = sum + element;\n  });\n  return sum;\n\n\n}"
+       },
+       "by_subtree": {
+           "map": "function(doc) { \n  var path = [doc.treeID].concat(doc.path)\n  for (var i in path) {\n\n    emit([path[i], path]) \n  } \n}",
+           "reduce": "_count"
+       },
+       "by_path": {
+           "map": "function(doc) { \n\tvar path = [doc.treeID].concat(doc.path); \t//'queue'\n    emit(path) \n}",
+           "reduce": "_count"
+       },
+       "leafnodeCount": {
+           "map": "function(doc) {\n\tif (doc.children.length===0) {\n\t\temit(doc.treeID,1);\n\t}\n}",
+           "reduce": "function(keys,values) {\n\n var sum = 0;\n  values.forEach(function(element) {\n    sum = sum + element;\n  });\n  return sum;\n\n\n}"
+       },
+       "name": {
+           "map": "function(doc) {\n  if(doc.hasOwnProperty('name'))\n  emit(doc.name, doc);\n}"
+       }
+   },
+   "lists": {
+       "json": "function(head, req) {\n   provides(\"json\",function(){\n\tsend(\"[\");\n\twhile(row=getRow()){\n\n\t\tsend(JSON.stringify(row.doc));\n\t\tsend(\",\");\n\t}\n\tsend(\"null\");\n\tsend(\"]\");\n\t});\n\n\n}",
+       "html": "function(head, req) {\n  provides(\"html\", function() {\n    html = \"<html><body>\";\n    html += \"<h2>View Results</h2>\";\n    html += \"Request: <pre>\" + JSON.stringify(req, null, 2) + \"</pre>\";\n    html += \"<ol>\\n\";\n    while (row = getRow()) {\n      html += \"<li>\" + row.key + \":\" + row.value + \"</li>\\n\";\n    }\n    html += \"</ol></body></head>\";\n    return html;\n  });\n}"
+   },
+   "couchapp": {
+       "signatures": {
+       },
+       "objects": {
+       },
+       "manifest": [
+           "language",
+           "lists/",
+           "lists/html.js",
+           "lists/json.js",
+           "views/",
+           "views/by_path/",
+           "views/by_path/map.js",
+           "views/by_path/reduce.js",
+           "views/by_subtree/",
+           "views/by_subtree/map.js",
+           "views/by_subtree/reduce.js",
+           "views/leafnodeCount/",
+           "views/leafnodeCount/map.js",
+           "views/leafnodeCount/reduce.js",
+           "views/leafnodes/",
+           "views/leafnodes/map.js",
+           "views/leafnodesbytemplate/",
+           "views/leafnodesbytemplate/map.js",
+           "views/name/",
+           "views/name/map.js",
+           "views/parent/",
+           "views/parent/map.js",
+           "views/platformnodes/",
+           "views/platformnodes/map.js",
+           "views/portfolionodes/",
+           "views/portfolionodes/map.js",
+           "views/subtree/",
+           "views/subtree/map.js",
+           "views/treeCount/",
+           "views/treeCount/map.js",
+           "views/treeCount/reduce.js",
+           "views/treeID/",
+           "views/treeID/map.js"
+       ]
+   }
+}

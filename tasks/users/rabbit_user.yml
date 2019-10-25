@@ -1,0 +1,11 @@
+## {{company}} Development VM Setup
+##
+## create RabbitMQ unprivliged user
+## author: GS
+##
+##
+---
+  - name: RabbitMQ group
+    group: name=rabbitmq
+  - name: RabbitMQ user
+    user: name=rabbitmq comment="rabbitMQ User" 

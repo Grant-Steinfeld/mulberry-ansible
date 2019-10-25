@@ -1,0 +1,13 @@
+{
+    "installer_user":"agentidea",
+    "installer_password":"Jy1met23!",
+    "runtime_user":"dev",
+    "runtime_password":"Bb1t@Dbatc",
+    "apache_user":"apache",
+    "rabbit_user":"rabbitmq",
+    "default_password":"vacation",
+    "company_pass":"agentidea_pass",
+    "company_user":"dev",
+    "application_name":"lastlist",
+    "app_name":"lastlist"
+}

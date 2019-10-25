@@ -1,0 +1,13 @@
+
+##  Development VM Setup
+##
+## author: GS
+##
+##
+---
+# Initial system configuration
+  - name: Set soft ulimits
+    lineinfile: dest=/etc/security/limits.conf line="* soft nofile 65536" regexp="^\* soft nofile"
+    #pam_limits: limit_type=soft limit_item=nofile value=65535 user=dev
+  - name: Set hard ulimits
+    lineinfile: dest=/etc/security/limits.conf line="* hard nofile 65536" regexp="^\* hard nofile"

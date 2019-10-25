@@ -1,0 +1,1 @@
+{"_id":"_design/reports","language":"javascript","views":{"kreds":{"map":"function(doc) {\n\nif( doc.hasOwnProperty('kreds'))\n{\n  emit(doc.kreds, doc);\n}}"}}}

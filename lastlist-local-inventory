@@ -1,0 +1,9 @@
+[dev_hosts]
+#lastlist.remote.vm
+lastlist.local.vm
+
+[dev_hosts:vars]
+ansible_connect=ssh 
+ansible_user=agentidea
+ansible_python_interpreter=/usr/bin/python2
+

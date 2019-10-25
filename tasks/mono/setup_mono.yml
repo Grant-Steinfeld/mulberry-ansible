@@ -1,0 +1,63 @@
+---
+
+- name: "install prerequisites"
+  yum: name={{ item }} state=latest
+  with_items:
+    - yum-utils
+    - htop
+    - tree
+
+- name: Add repository
+  yum_repository:
+    name: mod_mono
+    description: ASP.NET framework for Mono
+    baseurl: http://download.mono-project.com/repo/centos/
+
+- name: "install mono prerequisites"
+  yum: name={{ item }} state=latest
+  with_items:
+    - httpd
+    - mod_ssl
+    - curl
+    - cabextract
+    - xorg-x11-font-utils
+    - fontconfig
+
+
+
+
+# $to_do: this only works if running at root?
+# run rpm install for fonts
+- name: "run font installation script"
+  shell: rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+  become: yes
+  become_user: "root"
+
+
+# add ignore check signature errors encountered with mod_mono install 
+# mono_core etc
+# note quotes ignored
+- lineinfile:
+    dest: /etc/yum.repos.d/mod_mono.repo
+    line: 'gpgcheck=0'
+
+- name: install the latest version of mod_mono
+  yum:
+    name: mod_mono
+    state: latest
+
+# ADD the following line to enable .NET version 4
+- lineinfile:
+    dest: /etc/httpd/conf.d/mod_mono.conf
+    line: 'MonoServerPath /usr/bin/mod-mono-server4'
+
+
+# - name: Remove repository (and clean up left-over metadata)
+#   yum_repository:
+#     name: mod_mono
+#     state: absent
+
+# - name: remove the mod_mono package
+#   yum:
+#     name: mod_mono
+#     state: absent

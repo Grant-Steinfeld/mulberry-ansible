@@ -1,0 +1,5 @@
+- name: "install java"
+  yum: name={{ item }} state=latest
+  with_items:
+    - java
+    - java-1.8.0-openjdk-devel

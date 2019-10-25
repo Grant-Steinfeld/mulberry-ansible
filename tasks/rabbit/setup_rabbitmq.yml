@@ -1,0 +1,26 @@
+
+---
+
+  - name: "copy rabbitMQ setup script"
+    copy: src=install_rabbitmq.sh dest="{{ {{company}}_setupdir }}/rabbitmq/install_rabbitmq.sh" mode=0755 owner="{{ {{company}}_user }}"
+
+  - name: "copy rabbitMQ conf"
+    copy: src=rabbitmq.conf dest="{{ {{company}}_setupdir }}/rabbitmq/rabbitmq.conf" mode=0755 owner="{{ {{company}}_user }}"
+
+  - name: "copy rabbitMQ conf"
+    copy: src=rabbitmq.conf dest="{{ {{company}}_setupdir }}/rabbitmq/rabbitmq.conf" mode=0755 owner="{{ {{company}}_user }}"
+
+  - name: run rabbitMQ installation script
+    shell: "{{ {{company}}_setupdir }}/rabbitmq/install_rabbitmq.sh"
+    become: yes
+    become_user: "{{ dev_user }}"
+
+  - name: opt/{{app_name}}/apps/rabbitmq_server-3.6.5/var dir
+    file: path=/opt/{{app_name}}/apps/rabbitmq_server-3.6.5/var state=directory owner=rabbitmq group=rabbitmq
+
+
+  # copy rabbitmq.service to systemd
+  - copy: src=tasks/rabbit/rabbitmq.service dest=/etc/systemd/system/rabbitmq.service owner=root group=root mode=0640
+
+  # startup service rabbitmq enabled
+  - service: name=rabbitmq.service state=started enabled=yes

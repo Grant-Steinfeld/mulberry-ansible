@@ -1,0 +1,13 @@
+#
+####### pip-requirements3.txt #######
+#
+###### Requirements without Version Specifiers ######
+requests
+pyOpenSSL
+service_identity
+flask
+flask-cors
+flask-restplus
+python-osc
+
+

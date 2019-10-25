@@ -1,0 +1,12 @@
+{
+  "_id": "_design/reports",
+  "language": "javascript",
+  "views": {
+    "username": {
+      "map": "function(doc) {\n  if(doc.username)  {\n     emit(doc.username, doc);  }}"
+    },
+    "email": {
+      "map": "function(doc) {\n  if(doc.email)  {\n     emit(doc.email, doc);  }}"
+    }
+  }
+}

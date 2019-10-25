@@ -1,0 +1,11 @@
+
+## {{company_camel}} Development VM Setup
+##
+## author: GS
+##
+##
+---
+
+  - name: cleanup setup dirs
+    file: /opt/{{app_name}}/apps/setup
+    state: absent

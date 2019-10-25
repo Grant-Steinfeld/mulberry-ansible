@@ -1,0 +1,22 @@
+### issue here have to be root to run this ...
+
+---
+#create setup and app dirs
+- name: opt/{{app_name}}/apps/setup/erlang dir
+  file: path=/opt/{{app_name}}/apps/setup/erlang state=directory owner=dev group=dev
+
+- name: opt/{{app_name}}/apps/erlang dir
+  file: path=/opt/{{app_name}}/apps/erlang state=directory owner=dev group=dev
+  
+
+
+
+- name: "copy erlang setup script"
+  copy: src=tasks/erlang/install_erlang.sh dest="{{company_erlangsetupdir}}/install_erlang.sh" mode=0755 owner="{{company_user}}"
+
+
+- name: "run erlang installation script very slow just wait"
+  shell: "{{company_erlangsetupdir}}/install_erlang.sh {{application_name}}"
+  become: yes
+  become_user: "{{dev_user}}"
+

@@ -1,0 +1,24 @@
+- name: Add MongoDB yum repository
+  yum_repository:
+      name: MondoDB
+      description: The MongoDB repo
+      baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/
+      gpgcheck: yes
+      gpgkey: https://www.mongodb.org/static/pgp/server-3.6.asc
+      enabled: yes
+
+- name: "install MongoDB"
+  yum: name={{ item }} state=latest
+  with_items:
+    - mongodb-org
+
+- name: Enable Mongo for auto-start
+  service:
+     name: "{{ item }}"
+     enabled: yes
+  with_items:
+     - mongod
+
+
+- name: Make sure MongoDB is running
+  systemd: state=started name=mongod

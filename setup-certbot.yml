@@ -1,0 +1,18 @@
+## AgentIdea 
+## certbot setup 
+##
+## author: Grant Steinfeld
+##
+
+---
+
+- hosts: dev_hosts
+  remote_user: agentidea
+  become: True
+  vars:
+
+    ansible_hostname: lastlist.com
+  tasks:
+    - include: tasks/certbot/setup_certbot.yml
+    
+

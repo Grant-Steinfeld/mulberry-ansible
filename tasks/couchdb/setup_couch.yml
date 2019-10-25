@@ -1,0 +1,44 @@
+# Install couchdb dependencies.
+- yum: name="{{ item }}" state=present
+  with_items:
+    - libtool
+    - perl-Test-Harness
+    - libicu-devel
+    - js-devel
+    - curl-devel
+
+    
+# Download and install couchdb.
+- unarchive: remote_src=yes src=http://archive.apache.org/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz dest=/opt/{{app_name}}/apps/setup/couchdb 
+  
+
+- name: "Build CouchDB"
+  shell: export PATH=$PATH:/opt/{{app_name}}/apps/erlang/bin && ./configure --prefix=/opt/{{app_name}}/apps/couchdb && make
+  args:
+    chdir: /opt/{{app_name}}/apps/setup/couchdb/{{apache_user}}-couchdb-1.6.1
+
+- name: "Install CouchDB"
+  become: yes
+  command: make install
+  args:
+    chdir: /opt/{{app_name}}/apps/setup/couchdb/{{apache_user}}-couchdb-1.6.1
+
+# Add couchdb user + group
+- group: name=couchdb state=present
+- user: home=/opt/{{app_name}}/apps/couchdb/var/lib/couchdb comment="CouchDB User" name=couchdb group=couchdb state=present
+
+# add couchdb file ownership and permissions.
+- file: path=/opt/{{app_name}}/apps/couchdb/etc/couchdb owner=couchdb group=couchdb mode=0770
+- file: path=/opt/{{app_name}}/apps/couchdb/var/lib/couchdb owner=couchdb group=couchdb mode=0770
+- file: path=/opt/{{app_name}}/apps/couchdb/var/log/couchdb owner=couchdb group=couchdb mode=0770
+- file: path=/opt/{{app_name}}/apps/couchdb/var/run/couchdb owner=couchdb group=couchdb mode=0770
+
+# needed for couchdb to write to local.ini for fix of admin party
+- file: path=/opt/{{app_name}}/apps/couchdb/etc/couchdb/local.ini owner=couchdb group=couchdb mode=0770
+
+# copy couchdb.service to systemd
+- copy: src=tasks/couchdb/couchdb.service dest=/etc/systemd/system/couchdb.service owner=root group=root mode=0640
+
+# startup service couchdb enabled
+- service: name=couchdb state=started enabled=yes
+  
