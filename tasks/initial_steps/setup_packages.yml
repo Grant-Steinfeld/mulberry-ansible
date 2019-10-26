@@ -41,6 +41,8 @@
       - gcc-c++
       - glibc-devel
       - make
+      - tmux
+      - vim
 
 
   - name: "start httpd service by default"
