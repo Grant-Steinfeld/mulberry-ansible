@@ -1,8 +1,8 @@
 {
     "installer_user":"agentidea",
-    "installer_password":"Jy1met23!",
+    "installer_password":"xyz",
     "runtime_user":"dev",
-    "runtime_password":"Bb1t@Dbatc",
+    "runtime_password":"xyz",
     "apache_user":"apache",
     "rabbit_user":"rabbitmq",
     "default_password":"vacation",
